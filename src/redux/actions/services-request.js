@@ -1,17 +1,28 @@
 import api from "../../services";
-import { POSTSLIST } from "./type";
+import { LOGIN } from "./type";
+import { notification } from "antd";
 
-const servicesList = (data) => {
-  return { type: POSTSLIST, data };
+const login = (data) => {
+  return { type: LOGIN, data };
 };
 
-export const serviceRequest = () => (dispatch) => {
+export const isValidUser = (values) => (dispatch) => {
   api
-    .get("")
+    .post("login/", {
+      ...values,
+    })
     .then(({ data }) => {
-      dispatch(servicesList(data));
+      dispatch(login(data));
+      console.log(data);
+      // localStorage.setItem("user", JSON.stringify(data));
+      notification.success({
+        message: "Olá, bem vindo(a)",
+      });
     })
     .catch(({ response }) => {
       console.log(response);
+      notification.error({
+        message: response.statusText,
+      });
     });
 };

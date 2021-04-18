@@ -1,11 +1,16 @@
-import { POSTSLIST } from "../actions/type";
+import { LOGIN } from "../actions/type";
 
-const defaultState = [];
+const defaultState = {
+  user: null,
+  // token: localStorage.getItem("user"),
+};
 const serviceReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case POSTSLIST:
-      return action.data;
-
+    case LOGIN:
+      return {
+        ...state,
+        user: action.data,
+      };
     default:
       return state;
   }

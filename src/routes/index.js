@@ -1,8 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Timeline from "../pages/timeline/timeline";
+import Login from "../pages/login/login";
 //apoio para rotas
-export const routes = [{ path: "/", name: "Timeline", component: Timeline }];
+export const routes = [
+  { path: "/", name: "Login", component: Login },
+  { path: "/timeline", name: "Timeline", component: Timeline },
+];
 
 const Routes = () => {
   return (
