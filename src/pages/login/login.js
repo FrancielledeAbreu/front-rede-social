@@ -1,17 +1,20 @@
 import { isValidUser } from "../../redux/actions/services-request";
 import { useDispatch, useSelector } from "react-redux";
+import FaceIcon from "@material-ui/icons/Face";
 import React from "react";
-import { Form, Button, Input, Layout } from "antd";
-import { Link, useHistory } from "react-router-dom";
+import { Form, Button, Input } from "antd";
+import { useHistory } from "react-router-dom";
 
 //style
-import { Container } from "./login.style";
+import { Container, Title } from "./login.style";
 
+//locals
+import Header from "../../components/header/header";
+import Footer from "../../components/footer/footer";
 const Login = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.serviceReducer);
   const history = useHistory();
-  // const { Header } = Layout;
 
   const onFinish = (values) => {
     dispatch(isValidUser(values));
@@ -28,7 +31,7 @@ const Login = () => {
 
   const layout = {
     labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
+    wrapperCol: { span: 32 },
   };
 
   const tailLayout = {
@@ -36,65 +39,43 @@ const Login = () => {
   };
   return (
     <>
-      <Layout>
-        {/* <Header style={{ padding: "0" }} className="header App-header">
-          <Menu
-            theme="light"
-            mode="horizontal"
-            style={{ width: "100%", borderRight: 0 }}
-          >
-            <Menu.Item>
-              <Link to="/">Home</Link>
-            </Menu.Item>
-          </Menu>
-        </Header> */}
-      </Layout>
+      <Header />
+      <Title>
+        Explore a Rede <FaceIcon fontSize="large" />
+      </Title>
       <Container>
-        <div>
-          <Form
-            {...layout}
-            name="basic"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
+        <Form
+          {...layout}
+          name="basic"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          style={{ padding: "3.85%" }}
+        >
+          <Form.Item
+            name="username"
+            rules={[
+              { required: true, message: "Por favor insira seu username!" },
+            ]}
           >
-            <Form.Item
-              label="Username"
-              name="username"
-              rules={[
-                { required: true, message: "Por favor insira seu username!" },
-              ]}
-            >
-              <Input />
-            </Form.Item>
+            <Input placeholder="username" />
+          </Form.Item>
 
-            <Form.Item
-              label="Senha"
-              name="password"
-              rules={[
-                { required: true, message: "Por favor insira sua senha!" },
-              ]}
-            >
-              <Input.Password />
-            </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: "Por favor insira sua senha!" }]}
+          >
+            <Input.Password placeholder="senha" />
+          </Form.Item>
 
-            <Form.Item
-              style={{ textAlign: "center" }}
-              {...tailLayout}
-              name="remember"
-              valuePropName="checked"
-            >
-              <Link>Esqueci a senha</Link>
-            </Form.Item>
-
-            <Form.Item {...tailLayout}>
-              <Button type="primary" htmlType="submit" block>
-                Entrar
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
+          <Form.Item {...tailLayout}>
+            <Button type="primary" htmlType="submit" size="large" danger>
+              Entrar
+            </Button>
+          </Form.Item>
+        </Form>
       </Container>
+      <Footer />
     </>
   );
 };
