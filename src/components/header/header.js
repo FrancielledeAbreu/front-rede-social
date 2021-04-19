@@ -50,7 +50,7 @@ const Header = ({ testID }) => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <a href="/timeline">Timeline</a>
+          <a href="/">Login</a>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <a href="/cadastro">Cadastro</a>

@@ -21,7 +21,6 @@ const Login = () => {
   };
 
   if (user && user.user) {
-    console.log("aqui");
     history.push("/timeline");
   }
 
