@@ -12,13 +12,13 @@ const signup = (data) => {
 
 export const isValidUser = (values) => (dispatch) => {
   api
-    .post("login/", {
+    .post("/api/login/", {
       ...values,
     })
     .then(({ data }) => {
       dispatch(login(data));
+      localStorage.setItem("user", JSON.stringify(data));
       console.log(data);
-      // localStorage.setItem("user", JSON.stringify(data));
       notification.success({
         message: "Olá, bem vindo(a)",
       });
@@ -33,7 +33,7 @@ export const isValidUser = (values) => (dispatch) => {
 
 export const signupRequest = (values) => (dispatch) => {
   api
-    .post("accounts/", {
+    .post("/api/accounts/", {
       ...values,
     })
     .then(({ data }) => {

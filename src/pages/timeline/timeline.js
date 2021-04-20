@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 // import axios from "axios";
 // import { useSelector } from "react-redux";
 
@@ -50,7 +51,10 @@ const Timeline = () => {
 
   return (
     <>
-      <Container>Explore esse mundo!</Container>
+      <Container>
+        Explore esse mundo!
+        <Link to="/feed">my feed</Link>
+      </Container>
       <Main>
         {timeline.timeline &&
           timeline.timeline

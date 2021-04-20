@@ -81,12 +81,19 @@ const Post = ({
       {location.pathname !== "/timeline" && (
         <>
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites" onClick={likeAction}>
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="add to favorites" onClick={commentAction}>
-              <ChatBubbleOutlineIcon />
-            </IconButton>
+            {location.pathname !== "/feed" && (
+              <>
+                <IconButton aria-label="add to favorites" onClick={likeAction}>
+                  <FavoriteIcon />
+                </IconButton>
+                <IconButton
+                  aria-label="add to favorites"
+                  onClick={commentAction}
+                >
+                  <ChatBubbleOutlineIcon />
+                </IconButton>
+              </>
+            )}
             <IconButton
               className={clsx(classes.expand, {
                 [classes.expandOpen]: expanded,
@@ -98,6 +105,7 @@ const Post = ({
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
+
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <Typography variant="body2" color="textSecondary" component="p">
               {like && like.length > 0 && (
