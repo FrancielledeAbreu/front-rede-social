@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import api from "../../services";
 import React, { useEffect, useState } from "react";
 
@@ -12,6 +13,7 @@ import Post from "../../components/post/post";
 const Feed = () => {
   const user = useSelector((state) => state.serviceReducer);
   const [feed, setFeed] = useState([]);
+  const url = "http://localhost:8000";
   // const [key, setKey] = useState(null);
 
   const axiosConfig = (token) => ({
@@ -58,9 +60,25 @@ const Feed = () => {
     handleFeed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // console.log(key, "gdgdzf");
+
   return (
     <Main>
+      <a
+        href={`${url}/api/reports/following/${
+          feed.length > 0 && feed[0].author.id
+        }/`}
+        target="_blank"
+      >
+        Seguindo
+      </a>
+      <a
+        href={`${url}/api/reports/followers/${
+          feed.length > 0 && feed[0].author.id
+        }/`}
+        target="_blank"
+      >
+        Seguidores
+      </a>
       {feed.length > 0 &&
         feed.map((item, i) => {
           return (
