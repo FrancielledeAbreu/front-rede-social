@@ -19,7 +19,7 @@ import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 600,
   },
   media: {
     height: 0,

@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 // import axios from "axios";
 // import { useSelector } from "react-redux";
 
+//style
+import { Main, Container } from "./timeline-style";
 //locals
 import Post from "../../components/post/post";
 
@@ -47,28 +49,31 @@ const Timeline = () => {
   // console.log(user.user.token);
 
   return (
-    <div>
-      {timeline.timeline &&
-        timeline.timeline
-          .sort(() => 0.5 - Math.random())
-          .map((item, i) => {
-            return (
-              <>
-                <Post
-                  kei={i}
-                  author={item.author.username}
-                  title={item.title}
-                  posted_on={item.posted_on}
-                  image={item.image}
-                  description={item.description}
-                  // comment={item.comment}
-                  // like={item.like}
-                  // likeAction={() => handleLike(item.id)}
-                />
-              </>
-            );
-          })}
-    </div>
+    <>
+      <Container>Explore esse mundo!</Container>
+      <Main>
+        {timeline.timeline &&
+          timeline.timeline
+            .sort(() => 0.5 - Math.random())
+            .map((item, i) => {
+              return (
+                <>
+                  <Post
+                    kei={i}
+                    author={item.author.username}
+                    title={item.title}
+                    posted_on={item.posted_on}
+                    image={item.image}
+                    description={item.description}
+                    // comment={item.comment}
+                    // like={item.like}
+                    // likeAction={() => handleLike(item.id)}
+                  />
+                </>
+              );
+            })}
+      </Main>
+    </>
   );
 };
 
