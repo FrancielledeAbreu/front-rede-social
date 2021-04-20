@@ -4,6 +4,7 @@ import Timeline from "../pages/timeline/timeline";
 import Login from "../pages/login/login";
 import Signup from "../pages/signup/signup";
 import Feed from "../pages/feed/feed";
+import TimelinePrivate from "../pages/private-timeline/private-timeline";
 
 //apoio para rotas
 export const routes = [
@@ -11,6 +12,11 @@ export const routes = [
   { path: "/timeline", name: "Timeline", component: Timeline },
   { path: "/cadastro", name: "Cadastro", component: Signup },
   { path: "/feed", name: "Feed", component: Feed },
+  {
+    path: "/timeline-private",
+    name: "TimelinePrivate",
+    component: TimelinePrivate,
+  },
 ];
 
 const Routes = () => {

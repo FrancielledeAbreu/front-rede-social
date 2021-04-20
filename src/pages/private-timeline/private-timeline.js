@@ -1,20 +1,17 @@
-/* eslint-disable react/jsx-no-target-blank */
 import api from "../../services";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import VpnLockIcon from "@material-ui/icons/VpnLock";
 import { useSelector } from "react-redux";
-
-//style
-import { Main, Card } from "./feed-style";
+import { Link } from "react-router-dom";
+// //style
+// import { Main, Card } from "./feed-style";
 
 //locals
 import Post from "../../components/post/post";
-
-const Feed = () => {
+// posts publicos de all users mais privados dos user que o current user segue
+const TimelinePrivate = () => {
   const user = useSelector((state) => state.serviceReducer);
   const [feed, setFeed] = useState([]);
-  const url = "http://localhost:8000";
-  // const [key, setKey] = useState(null);
 
   const axiosConfig = (token) => ({
     headers: {
@@ -28,7 +25,7 @@ const Feed = () => {
     if (user.user == null) {
       return api
         .get(
-          "/api/feed/",
+          "/api/timeline/private",
           axiosConfig(JSON.parse(localStorage.getItem("user")).token)
         )
         .then(({ data }) => {
@@ -40,7 +37,7 @@ const Feed = () => {
         });
     } else {
       return api
-        .get("/api/feed/", axiosConfig(user.user.token))
+        .get("/api/timeline/private", axiosConfig(user.user.token))
         .then(({ data }) => {
           console.log(data);
           setFeed(data);
@@ -52,43 +49,20 @@ const Feed = () => {
   };
 
   useEffect(() => {
-    // if (user.user !== null) {
-    //   setKey(user.user);
-    // } else {
-    //   setKey(JSON.parse(localStorage.getItem("user")));
-    // }
     handleFeed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <>
-      <div>
-        <a
-          href={`${url}/api/reports/following/${
-            feed.length > 0 && feed[0].author.id
-          }/`}
-          target="_blank"
-        >
-          -Seguindo
-        </a>
-
-        <a
-          href={`${url}/api/reports/followers/${
-            feed.length > 0 && feed[0].author.id
-          }/`}
-          target="_blank"
-        >
-          -Seguidores
-        </a>
-
-        <Link to="/timeline-private">-timeline-private</Link>
-      </div>
-      <Main>
-        {feed.length > 0 &&
-          feed.map((item, i) => {
+    <div>
+      <Link to="/feed">my feed</Link>
+      {feed.length > 0 &&
+        feed
+          .filter((isPrivate) => isPrivate.private === true)
+          .map((item, i) => {
             return (
-              <Card>
+              <div>
+                {item.private && <VpnLockIcon />}
                 <Post
                   kei={i}
                   author={item.author.username}
@@ -99,12 +73,11 @@ const Feed = () => {
                   comment={item.comment}
                   like={item.like}
                 />
-              </Card>
+              </div>
             );
           })}
-      </Main>
-    </>
+    </div>
   );
 };
 
-export default Feed;
+export default TimelinePrivate;
