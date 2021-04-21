@@ -114,12 +114,12 @@ const Post = ({
               {comment &&
                 comment.map((comment, i) => {
                   return (
-                    <>
-                      <Typography paragraph key={i}>
+                    <div div key={i}>
+                      <Typography paragraph>
                         {comment.author.username} : {comment.comment}
                       </Typography>
                       {comment.commented_on}
-                    </>
+                    </div>
                   );
                 })}
             </Typography>

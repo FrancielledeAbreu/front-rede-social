@@ -195,10 +195,9 @@ const TimelinePrivate = () => {
           .filter((isPrivate) => isPrivate.private === true)
           .map((item, i) => {
             return (
-              <div>
+              <div key={i}>
                 {item.private && <VpnLockIcon />}
                 <Post
-                  key={i}
                   author={item.author.username}
                   title={item.title}
                   posted_on={item.posted_on}

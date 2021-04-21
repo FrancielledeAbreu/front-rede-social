@@ -3,7 +3,7 @@ import api from "../../services";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { Modal, Button, Form, Input, Radio, notification } from "antd";
 //style
 import { Main, Card } from "./feed-style";
 
@@ -13,6 +13,8 @@ import Post from "../../components/post/post";
 const Feed = () => {
   const user = useSelector((state) => state.serviceReducer);
   const [feed, setFeed] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const [valueRadio, setValue] = useState(1);
   const url = "http://localhost:8000";
   // const [key, setKey] = useState(null);
 
@@ -50,14 +52,82 @@ const Feed = () => {
   };
 
   useEffect(() => {
-    // if (user.user !== null) {
-    //   setKey(user.user);
-    // } else {
-    //   setKey(JSON.parse(localStorage.getItem("user")));
-    // }
     handleFeed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  };
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
+  const newPost = (values) => {
+    if (user.user == null) {
+      return api
+        .post(
+          "/api/timeline/",
+          {
+            ...values,
+          },
+          axiosConfig(JSON.parse(localStorage.getItem("user")).token)
+        )
+        .then(({ data }) => {
+          console.log(data);
+          notification.success({
+            message: "Novo Post criado com sucesso!",
+          });
+          setVisible(false);
+        })
+        .catch(({ response }) => {
+          console.log(response);
+          notification.error({
+            message: "Algo deu errado, desculpe!",
+          });
+        });
+    } else {
+      return api
+        .post(
+          "/api/timeline/",
+          {
+            ...values,
+          },
+          axiosConfig(user.user.token)
+        )
+        .then(({ data }) => {
+          console.log(data);
+          notification.success({
+            message: "Novo Post criado com sucesso!",
+          });
+          setVisible(false);
+        })
+        .catch(({ response }) => {
+          console.log(response);
+          notification.error({
+            message: "Algo deu errado, desculpe!",
+          });
+        });
+    }
+  };
+
+  const openModal = () => {
+    setVisible(true);
+  };
+  const onChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  const onFinish = (values) => {
+    let data = values;
+    if (valueRadio === 1) {
+      data.private = true;
+    } else {
+      data.private = false;
+    }
+
+    newPost(values);
+  };
 
   return (
     <>
@@ -83,13 +153,54 @@ const Feed = () => {
         <Link to="/timeline-private">-timeline-private</Link>
         <Link to="/all-users">-all-users</Link>
       </div>
+      <Modal
+        title="Novo Post"
+        centered
+        visible={visible}
+        onOk={() => setVisible(false)}
+        onCancel={() => setVisible(false)}
+      >
+        <Form
+          {...layout}
+          name="basic"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+        >
+          <Form.Item name="title" rules={[{ required: true }]}>
+            <Input placeholder="Titulo" />
+          </Form.Item>
+          <Form.Item name="description" rules={[{ required: true }]}>
+            <Input.TextArea placeholder="Descrição" />
+          </Form.Item>
+          <Form.Item name="image">
+            <Input placeholder="URL imagem" />
+          </Form.Item>
+
+          <Radio.Group
+            onChange={onChange}
+            value={valueRadio}
+            style={{ marginBottom: "10%" }}
+          >
+            <Radio value={1}>Privado</Radio>
+            <Radio value={2}>Público</Radio>
+          </Radio.Group>
+
+          <Form.Item {...tailLayout}>
+            <Button type="primary" htmlType="submit" size="large" danger>
+              Postar
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+      <Button onClick={openModal} size="large" danger>
+        Novo Post
+      </Button>
       <Main>
         {feed.length > 0 &&
           feed.map((item, i) => {
             return (
-              <Card>
+              <Card key={i}>
                 <Post
-                  key={i}
                   author={item.author.username}
                   title={item.title}
                   posted_on={item.posted_on}
