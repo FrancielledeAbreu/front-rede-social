@@ -5,10 +5,12 @@ export const Main = styled.div`
   font-family: "Roboto", sans-serif;
   display: flex;
   flex-wrap: wrap;
-  margin: auto;
-  justify-content: center;
 `;
 export const Card = styled.div`
-  width: 500px;
+  width: 450px;
   padding: 1%;
+`;
+
+export const Container = styled.div`
+  display: flex;
 `;

@@ -5,11 +5,12 @@ import { useSelector } from "react-redux";
 import { Modal, Button, Form, Input, Radio } from "antd";
 
 //style
-import { Main, Card } from "./feed-style";
+import { Main, Card, Container } from "./feed-style";
 
 //locals
 import Post from "../../components/post/post";
 import { info } from "../../components/notifications/notifications";
+import MenuModel from "../../components/menu/menu";
 import {
   getFeed,
   newPost,
@@ -52,27 +53,6 @@ const Feed = () => {
 
   return (
     <>
-      <div>
-        <a
-          href={`${url}/api/reports/following/${
-            feed.length > 0 && feed[0].author.id
-          }/`}
-          target="_blank"
-        >
-          -Seguindo
-        </a>
-
-        <a
-          href={`${url}/api/reports/followers/${
-            feed.length > 0 && feed[0].author.id
-          }/`}
-          target="_blank"
-        >
-          -Seguidores
-        </a>
-        <Link to="/timeline-private">-timeline-private</Link>
-        <Link to="/all-users">-all-users</Link>
-      </div>
       <Modal
         title="Novo Post"
         centered
@@ -111,30 +91,95 @@ const Feed = () => {
           </Form.Item>
         </Form>
       </Modal>
-      <Button onClick={openModal} size="large" danger>
-        Novo Post
-      </Button>
-      <Button onClick={() => info(notificationsList)} size="large" danger>
-        Info
-      </Button>
-      <Main>
-        {feed.length > 0 &&
-          feed.map((item, i) => {
-            return (
-              <Card key={i}>
-                <Post
-                  author={item.author.username}
-                  title={item.title}
-                  posted_on={item.posted_on}
-                  image={item.image}
-                  description={item.description}
-                  comment={item.comment}
-                  like={item.like}
-                />
-              </Card>
-            );
-          })}
-      </Main>
+      <Container>
+        <MenuModel
+          title="Feed"
+          Private={
+            <Link
+              style={{
+                color: "#ffff",
+              }}
+              to="/timeline-private"
+            >
+              Timeline Privada
+            </Link>
+          }
+          Todos={
+            <Link
+              style={{
+                color: "#ffff",
+              }}
+              to="/all-users"
+            >
+              Exploradores
+            </Link>
+          }
+          Seguidores={
+            <a
+              href={`${url}/api/reports/followers/${
+                feed.length > 0 && feed[0].author.id
+              }/`}
+              target="_blank"
+              style={{
+                color: "#ffff",
+              }}
+            >
+              Seguidores
+            </a>
+          }
+          Seguindo={
+            <a
+              href={`${url}/api/reports/following/${
+                feed.length > 0 && feed[0].author.id
+              }/`}
+              target="_blank"
+              style={{
+                color: "#ffff",
+              }}
+            >
+              Seguindo
+            </a>
+          }
+          Post={
+            <Button onClick={openModal} danger>
+              Novo Post +
+            </Button>
+          }
+          Info={
+            <Button onClick={() => info(notificationsList)} danger>
+              Notificações
+            </Button>
+          }
+          Public={
+            <Link
+              style={{
+                color: "#ffff",
+              }}
+              to="/timeline"
+            >
+              Explore
+            </Link>
+          }
+        />
+        <Main>
+          {feed.length > 0 &&
+            feed.map((item, i) => {
+              return (
+                <Card key={i}>
+                  <Post
+                    author={item.author.username}
+                    title={item.title}
+                    posted_on={item.posted_on}
+                    image={item.image}
+                    description={item.description}
+                    comment={item.comment}
+                    like={item.like}
+                  />
+                </Card>
+              );
+            })}
+        </Main>
+      </Container>
     </>
   );
 };
