@@ -1,10 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Skeleton, Switch, Card, Avatar } from "antd";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { Skeleton, Card } from "antd";
 
 //style
 import { Main, Container, Posts } from "./timeline-style";
@@ -14,7 +9,6 @@ import Post from "../../components/post/post";
 import MenuModel from "../../components/menu/menu";
 
 const Timeline = () => {
-  const { Meta } = Card;
   const ws = useRef(null);
   const [timeline, setTimeline] = useState([]);
 
