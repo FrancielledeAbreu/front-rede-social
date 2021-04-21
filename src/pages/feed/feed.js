@@ -22,8 +22,6 @@ const Feed = () => {
     },
   });
 
-  console.log(user.user, "gdgdzf");
-
   const handleFeed = () => {
     if (user.user == null) {
       return api
@@ -83,6 +81,7 @@ const Feed = () => {
         </a>
 
         <Link to="/timeline-private">-timeline-private</Link>
+        <Link to="/all-users">-all-users</Link>
       </div>
       <Main>
         {feed.length > 0 &&
@@ -90,7 +89,7 @@ const Feed = () => {
             return (
               <Card>
                 <Post
-                  kei={i}
+                  key={i}
                   author={item.author.username}
                   title={item.title}
                   posted_on={item.posted_on}

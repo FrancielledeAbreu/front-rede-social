@@ -19,8 +19,6 @@ const TimelinePrivate = () => {
     },
   });
 
-  console.log(user.user, "gdgdzf");
-
   const handleFeed = () => {
     if (user.user == null) {
       return api
@@ -64,7 +62,7 @@ const TimelinePrivate = () => {
               <div>
                 {item.private && <VpnLockIcon />}
                 <Post
-                  kei={i}
+                  key={i}
                   author={item.author.username}
                   title={item.title}
                   posted_on={item.posted_on}

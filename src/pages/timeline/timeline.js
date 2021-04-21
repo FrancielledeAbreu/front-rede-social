@@ -63,7 +63,7 @@ const Timeline = () => {
               return (
                 <>
                   <Post
-                    kei={i}
+                    key={i}
                     author={item.author.username}
                     title={item.title}
                     posted_on={item.posted_on}
