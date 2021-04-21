@@ -55,7 +55,6 @@ const Users = () => {
   };
 
   const follow = (id) => {
-    console.log(id);
     if (user.user == null) {
       return api
         .post(
@@ -75,7 +74,7 @@ const Users = () => {
         .post(`/api/members/${id}/follow/`, {}, axiosConfig(user.user.token))
         .then(({ data }) => {
           console.log(data);
-          console.log(" NÃO seguiu");
+          console.log("seguiu");
         })
         .catch(({ response }) => {
           console.log(response);

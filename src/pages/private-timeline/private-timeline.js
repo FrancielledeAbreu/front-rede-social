@@ -46,6 +46,38 @@ const TimelinePrivate = () => {
     }
   };
 
+  const like = (id) => {
+    if (user.user == null) {
+      return api
+        .post(
+          `/api/timeline/post/${id}/like/`,
+          {},
+          axiosConfig(JSON.parse(localStorage.getItem("user")).token)
+        )
+        .then(({ data }) => {
+          console.log(data);
+          console.log("like");
+        })
+        .catch(({ response }) => {
+          console.log(response);
+        });
+    } else {
+      return api
+        .post(
+          `/api/timeline/post/${id}/like/`,
+          {},
+          axiosConfig(user.user.token)
+        )
+        .then(({ data }) => {
+          console.log(data);
+          console.log("like");
+        })
+        .catch(({ response }) => {
+          console.log(response);
+        });
+    }
+  };
+
   useEffect(() => {
     handleFeed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,6 +102,7 @@ const TimelinePrivate = () => {
                   description={item.description}
                   comment={item.comment}
                   like={item.like}
+                  likeAction={() => like(item.id)}
                 />
               </div>
             );
