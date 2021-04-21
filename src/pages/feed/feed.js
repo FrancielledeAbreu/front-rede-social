@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Modal, Button, Form, Input, Radio } from "antd";
 
@@ -94,26 +93,7 @@ const Feed = () => {
       <Container>
         <MenuModel
           title="Feed"
-          Private={
-            <Link
-              style={{
-                color: "#ffff",
-              }}
-              to="/timeline-private"
-            >
-              Timeline Privada
-            </Link>
-          }
-          Todos={
-            <Link
-              style={{
-                color: "#ffff",
-              }}
-              to="/all-users"
-            >
-              Exploradores
-            </Link>
-          }
+          Timeline="Explore"
           Seguidores={
             <a
               href={`${url}/api/reports/followers/${
@@ -149,16 +129,6 @@ const Feed = () => {
             <Button onClick={() => info(notificationsList)} danger>
               Notificações
             </Button>
-          }
-          Public={
-            <Link
-              style={{
-                color: "#ffff",
-              }}
-              to="/timeline"
-            >
-              Explore
-            </Link>
           }
         />
         <Main>

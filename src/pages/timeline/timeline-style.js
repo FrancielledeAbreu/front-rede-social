@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Main = styled.div`
-  padding-left: 25%;
   @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;500&display=swap");
   font-family: "Roboto", sans-serif;
+  display: flex;
 `;
 
 export const Container = styled.div`
@@ -14,8 +14,12 @@ export const Container = styled.div`
     #8b105d,
     #3c0e49
   );
-  text-align: center;
+  text-align: end;
   color: #ffff;
   font-size: 40px;
   padding: 2%;
+`;
+export const Posts = styled.div`
+  width: 75%;
+  padding-left: 4%;
 `;

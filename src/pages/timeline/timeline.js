@@ -1,13 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Skeleton, Switch, Card, Avatar } from "antd";
+import {
+  EditOutlined,
+  EllipsisOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
 
 //style
-import { Main, Container } from "./timeline-style";
+import { Main, Container, Posts } from "./timeline-style";
 
 //locals
 import Post from "../../components/post/post";
+import MenuModel from "../../components/menu/menu";
 
 const Timeline = () => {
+  const { Meta } = Card;
   const ws = useRef(null);
   const [timeline, setTimeline] = useState([]);
 
@@ -30,26 +37,35 @@ const Timeline = () => {
 
   return (
     <>
-      <Container>
-        Explore esse mundo!
-        <Link to="/feed">my feed</Link>
-      </Container>
+      <Container>Explore esse mundo!</Container>
       <Main>
-        {timeline.timeline &&
-          timeline.timeline
-            .sort(() => 0.5 - Math.random())
-            .map((item, i) => {
-              return (
-                <Post
-                  key={i}
-                  author={item.author.username}
-                  title={item.title}
-                  posted_on={item.posted_on}
-                  image={item.image}
-                  description={item.description}
-                />
-              );
-            })}
+        <MenuModel title="Timeline" Feed="Feed" />
+        <Posts>
+          {timeline.timeline &&
+            timeline.timeline
+              .sort(() => 0.5 - Math.random())
+              .map((item, i) => {
+                return (
+                  <Post
+                    key={i}
+                    author={item.author.username}
+                    title={item.title}
+                    posted_on={item.posted_on}
+                    image={item.image}
+                    description={item.description}
+                  />
+                );
+              })}
+        </Posts>
+        <div>
+          {Array.from({ length: 50 }, (v, k) => k).map((key) => {
+            return (
+              <Card style={{ width: 250, height: 200 }}>
+                <Skeleton avatar active />
+              </Card>
+            );
+          })}
+        </div>
       </Main>
     </>
   );
