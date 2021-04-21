@@ -1,115 +1,36 @@
 /* eslint-disable react/jsx-no-target-blank */
-import api from "../../services";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Modal, Button, Form, Input, Radio, notification } from "antd";
+import { Modal, Button, Form, Input, Radio } from "antd";
+
 //style
 import { Main, Card } from "./feed-style";
 
 //locals
 import Post from "../../components/post/post";
+import { info } from "../../components/notifications/notifications";
+import {
+  getFeed,
+  newPost,
+  getNotifications,
+  layout,
+  tailLayout,
+} from "../../utils";
 
 const Feed = () => {
   const user = useSelector((state) => state.serviceReducer);
   const [feed, setFeed] = useState([]);
+  const [notificationsList, setNotificationsList] = useState([]);
   const [visible, setVisible] = useState(false);
   const [valueRadio, setValue] = useState(1);
   const url = "http://localhost:8000";
-  // const [key, setKey] = useState(null);
-
-  const axiosConfig = (token) => ({
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  });
-
-  const handleFeed = () => {
-    if (user.user == null) {
-      return api
-        .get(
-          "/api/feed/",
-          axiosConfig(JSON.parse(localStorage.getItem("user")).token)
-        )
-        .then(({ data }) => {
-          console.log(data);
-          setFeed(data);
-        })
-        .catch(({ response }) => {
-          console.log(response);
-        });
-    } else {
-      return api
-        .get("/api/feed/", axiosConfig(user.user.token))
-        .then(({ data }) => {
-          console.log(data);
-          setFeed(data);
-        })
-        .catch(({ response }) => {
-          console.log(response);
-        });
-    }
-  };
 
   useEffect(() => {
-    handleFeed();
+    getFeed(user, setFeed);
+    getNotifications(user, setNotificationsList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-  };
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-  };
-  const newPost = (values) => {
-    if (user.user == null) {
-      return api
-        .post(
-          "/api/timeline/",
-          {
-            ...values,
-          },
-          axiosConfig(JSON.parse(localStorage.getItem("user")).token)
-        )
-        .then(({ data }) => {
-          console.log(data);
-          notification.success({
-            message: "Novo Post criado com sucesso!",
-          });
-          setVisible(false);
-        })
-        .catch(({ response }) => {
-          console.log(response);
-          notification.error({
-            message: "Algo deu errado, desculpe!",
-          });
-        });
-    } else {
-      return api
-        .post(
-          "/api/timeline/",
-          {
-            ...values,
-          },
-          axiosConfig(user.user.token)
-        )
-        .then(({ data }) => {
-          console.log(data);
-          notification.success({
-            message: "Novo Post criado com sucesso!",
-          });
-          setVisible(false);
-        })
-        .catch(({ response }) => {
-          console.log(response);
-          notification.error({
-            message: "Algo deu errado, desculpe!",
-          });
-        });
-    }
-  };
 
   const openModal = () => {
     setVisible(true);
@@ -126,7 +47,7 @@ const Feed = () => {
       data.private = false;
     }
 
-    newPost(values);
+    newPost(values, user, setVisible);
   };
 
   return (
@@ -149,7 +70,6 @@ const Feed = () => {
         >
           -Seguidores
         </a>
-
         <Link to="/timeline-private">-timeline-private</Link>
         <Link to="/all-users">-all-users</Link>
       </div>
@@ -175,7 +95,6 @@ const Feed = () => {
           <Form.Item name="image">
             <Input placeholder="URL imagem" />
           </Form.Item>
-
           <Radio.Group
             onChange={onChange}
             value={valueRadio}
@@ -194,6 +113,9 @@ const Feed = () => {
       </Modal>
       <Button onClick={openModal} size="large" danger>
         Novo Post
+      </Button>
+      <Button onClick={() => info(notificationsList)} size="large" danger>
+        Info
       </Button>
       <Main>
         {feed.length > 0 &&

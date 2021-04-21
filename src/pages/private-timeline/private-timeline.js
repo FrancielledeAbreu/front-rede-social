@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import VpnLockIcon from "@material-ui/icons/VpnLock";
 
-// //style
-// import { Main, Card } from "./feed-style";
+//style
 
 //locals
 import Post from "../../components/post/post";

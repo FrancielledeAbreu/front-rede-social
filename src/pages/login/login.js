@@ -11,6 +11,8 @@ import { Container, Title } from "./login.style";
 //locals
 import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
+import { layout, tailLayout } from "../../utils";
+
 const Login = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.serviceReducer);
@@ -28,14 +30,6 @@ const Login = () => {
     console.log("Failed:", errorInfo);
   };
 
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 32 },
-  };
-
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-  };
   return (
     <>
       <Header />
