@@ -146,6 +146,7 @@ export const handleUsers = (user, setusers) => {
 };
 
 export const follow = (user, id) => {
+  console.log(id);
   if (user.user == null) {
     return api
       .post(

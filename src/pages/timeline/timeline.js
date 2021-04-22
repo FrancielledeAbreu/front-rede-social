@@ -33,7 +33,7 @@ const Timeline = () => {
     <>
       <Container>Explore esse mundo!</Container>
       <Main>
-        <MenuModel title="Timeline" Feed="Feed" />
+        <MenuModel title="Timeline" Feed="Feed" Exploradores="Exploradores" />
         <Posts>
           {timeline.timeline &&
             timeline.timeline

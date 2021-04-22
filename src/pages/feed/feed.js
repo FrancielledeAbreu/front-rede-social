@@ -94,6 +94,7 @@ const Feed = () => {
         <MenuModel
           title="Feed"
           Timeline="Explore"
+          Exploradores="Exploradores"
           Seguidores={
             <a
               href={`${url}/api/reports/followers/${

@@ -44,7 +44,12 @@ const TimelinePrivate = () => {
       />
       <Header> Private Posts from people that I follow</Header>
       <Main>
-        <MenuModel title="Timeline Privada" Feed="Feed" Timeline="Explore" />
+        <MenuModel
+          title="Timeline Privada"
+          Feed="Feed"
+          Timeline="Explore"
+          Exploradores="Exploradores"
+        />
         <Container>
           {feed.length > 0 &&
             feed

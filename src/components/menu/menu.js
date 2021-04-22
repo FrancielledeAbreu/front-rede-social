@@ -15,6 +15,7 @@ const MenuModel = ({
   Post,
   Info,
   Feed,
+  Exploradores,
 }) => {
   return (
     <>
@@ -73,16 +74,18 @@ const MenuModel = ({
           </Link>
         </Menu.Item>
 
-        <Menu.Item key="5" icon={<FaceIcon />}>
-          <Link
-            style={{
-              color: "#ffff",
-            }}
-            to="/all-users"
-          >
-            Exploradores
-          </Link>
-        </Menu.Item>
+        {Exploradores && (
+          <Menu.Item key="5" icon={<FaceIcon />}>
+            <Link
+              style={{
+                color: "#ffff",
+              }}
+              to="/all-users"
+            >
+              {Exploradores}
+            </Link>
+          </Menu.Item>
+        )}
         <Menu.Item key="6">{Post}</Menu.Item>
         <Menu.Item key="7">{Info}</Menu.Item>
         {Feed && (
