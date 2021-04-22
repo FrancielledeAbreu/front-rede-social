@@ -2,6 +2,7 @@ import api from "../services";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { makeStyles } from "@material-ui/core/styles";
 import { notification } from "antd";
+import { red } from "@material-ui/core/colors";
 
 //requests
 export const axiosConfig = (token) => ({
@@ -298,5 +299,28 @@ export const tailLayout = {
 export const useStyles = makeStyles((theme) => ({
   icon: {
     color: "#ff4d4f",
+  },
+  colorPrimary: {
+    color: "#ffff",
+  },
+  root: {
+    maxWidth: 600,
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%",
+  },
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: "rotate(180deg)",
+  },
+  avatar: {
+    backgroundColor: red[500],
   },
 }));
