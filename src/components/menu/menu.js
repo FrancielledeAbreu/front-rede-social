@@ -1,11 +1,12 @@
-import { Menu } from "antd";
+import { Menu, Button } from "antd";
 import VpnLockIcon from "@material-ui/icons/VpnLock";
 import FaceIcon from "@material-ui/icons/Face";
 import HowToRegIcon from "@material-ui/icons/HowToReg";
 import DirectionsRunIcon from "@material-ui/icons/DirectionsRun";
 import PublicIcon from "@material-ui/icons/Public";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TimelineIcon from "@material-ui/icons/Timeline";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const MenuModel = ({
   title,
@@ -17,6 +18,11 @@ const MenuModel = ({
   Feed,
   Exploradores,
 }) => {
+  const history = useHistory();
+  const exit = () => {
+    localStorage.clear();
+    history.push("/");
+  };
   return (
     <>
       <Menu
@@ -100,6 +106,15 @@ const MenuModel = ({
             </Link>
           </Menu.Item>
         )}
+        <Menu.Item key="9">
+          <Button
+            onClick={exit}
+            danger
+            style={{ paddingLeft: "40px", paddingRight: "40px" }}
+          >
+            <ExitToAppIcon />
+          </Button>
+        </Menu.Item>
       </Menu>
     </>
   );
