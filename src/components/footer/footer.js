@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
@@ -30,17 +29,28 @@ const Footer = () => {
 
   return (
     <Breadcrumbs aria-label="breadcrumb" className={classes.root}>
-      <Link color="inherit" href="/" className={classes.link}>
+      <Link
+        color="inherit"
+        href="https://kenzie.com.br/"
+        className={classes.link}
+        target="blank"
+      >
         Projeto conclusão Q4 - Kenzie Academy Brasil
       </Link>
 
-      <Link color="inherit" href="/" className={classes.link}>
+      <Link
+        color="inherit"
+        href="https://www.linkedin.com/school/kenzie-academy-brasil/"
+        className={classes.link}
+        target="blank"
+      >
         <LinkedInIcon className={classes.icon} />
       </Link>
       <Link
         color="inherit"
-        href="/getting-started/installation/"
+        href="https://www.instagram.com/kenzieacademybr/"
         className={classes.link}
+        target="blank"
       >
         <InstagramIcon className={classes.icon} />
       </Link>

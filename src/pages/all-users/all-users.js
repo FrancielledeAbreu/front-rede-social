@@ -57,6 +57,9 @@ const Users = () => {
                         onClick={() => follow(user, idCurrent)}
                         danger
                         size="small"
+                        style={{
+                          marginLeft: "20px",
+                        }}
                       >
                         Seguir
                       </Button>
@@ -90,6 +93,9 @@ const Users = () => {
                         onClick={() => follow(user, idCurrent)}
                         danger
                         size="small"
+                        style={{
+                          marginLeft: "10px",
+                        }}
                       >
                         Seguir
                       </Button>
