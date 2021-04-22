@@ -1,5 +1,5 @@
 import api from "../../services";
-import { LOGIN, SIGNUP } from "./type";
+import { LOGIN, SIGNUP, LOGOUT } from "./type";
 import { notification } from "antd";
 
 const login = (data) => {
@@ -9,6 +9,12 @@ const login = (data) => {
 const signup = (data) => {
   return { type: SIGNUP, data };
 };
+
+export const setLogout = (cleanToken, cleanUser) => ({
+  type: LOGOUT,
+  cleanToken,
+  cleanUser,
+});
 
 export const isValidUser = (values) => (dispatch) => {
   api

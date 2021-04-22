@@ -7,6 +7,10 @@ import PublicIcon from "@material-ui/icons/Public";
 import { Link, useHistory } from "react-router-dom";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useDispatch } from "react-redux";
+
+//locals
+import { setLogout } from "../../redux/actions/services-request";
 
 const MenuModel = ({
   title,
@@ -19,8 +23,10 @@ const MenuModel = ({
   Exploradores,
 }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const exit = () => {
     localStorage.clear();
+    dispatch(setLogout(null, null));
     history.push("/");
   };
   return (

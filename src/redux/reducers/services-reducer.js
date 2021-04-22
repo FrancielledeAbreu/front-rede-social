@@ -1,4 +1,4 @@
-import { LOGIN, SIGNUP } from "../actions/type";
+import { LOGIN, LOGOUT, SIGNUP } from "../actions/type";
 
 const defaultState = {
   user: null,
@@ -17,6 +17,8 @@ const serviceReducer = (state = defaultState, action) => {
         ...state,
         userData: action.data,
       };
+    case LOGOUT:
+      return { ...state, user: action.cleanToken, userData: action.cleanUser };
     default:
       return state;
   }
