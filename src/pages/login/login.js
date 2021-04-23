@@ -43,7 +43,6 @@ const Login = () => {
           initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
-          style={{ padding: "3.85%" }}
         >
           <Form.Item
             name="username"

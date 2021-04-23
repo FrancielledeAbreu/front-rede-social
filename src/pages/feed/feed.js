@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Modal, Button, Form, Input, Radio } from "antd";
+import { Modal, Button, Form, Input, Radio, Empty } from "antd";
 
 //style
-import { Main, Card, Container } from "./feed-style";
+import { Main, Card, Container, NoData } from "./feed-style";
 
 //locals
 import Post from "../../components/post/post";
@@ -127,13 +127,29 @@ const Feed = () => {
             </Button>
           }
           Info={
-            <Button onClick={() => info(notificationsList)} danger>
+            <Button
+              onClick={() =>
+                info(
+                  notificationsList.sort(function (a, b) {
+                    if (a.id < b.id) {
+                      return 1;
+                    }
+                    if (a.id > b.id) {
+                      return -1;
+                    }
+                    // a must be equal to b
+                    return 0;
+                  })
+                )
+              }
+              danger
+            >
               Notificações
             </Button>
           }
         />
         <Main>
-          {feed.length > 0 &&
+          {feed.length > 0 ? (
             feed.map((item, i) => {
               return (
                 <Card key={i}>
@@ -148,7 +164,15 @@ const Feed = () => {
                   />
                 </Card>
               );
-            })}
+            })
+          ) : (
+            <NoData>
+              <Empty
+                style={{ width: 900, height: 580, paddingTop: "25%" }}
+                description={false}
+              />
+            </NoData>
+          )}
         </Main>
       </Container>
     </>

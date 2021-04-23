@@ -14,3 +14,5 @@ export const Card = styled.div`
 export const Container = styled.div`
   display: flex;
 `;
+
+export const NoData = styled.div``;

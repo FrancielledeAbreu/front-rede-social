@@ -51,7 +51,6 @@ const Header = () => {
         <MenuItem onClick={handleClose}>
           <a href="/cadastro">Cadastro</a>
         </MenuItem>
-        <MenuItem onClick={handleClose}>Sair</MenuItem>
       </Menu>
     </Container>
   );
